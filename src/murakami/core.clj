@@ -23,16 +23,18 @@
 (defn is-markdown-file? [file]
   (str/ends-with? (.getName (io/file file)) ".md"))
 
+(defn markdown-to-html-file [file]
+  (let [content (slurp file)
+        html-content (markdown/md-to-html-string content)
+        rendered-html (selmer/render template {:content html-content})
+        output-file (str (str/replace (str (.getName file)) #"\.md$" ".html"))]
+    (spit output-file rendered-html)
+    (println "Written to" output-file)))
+
 (defn read-markdown-files [dir]
   (let [files (filter is-markdown-file? (file-seq (io/file dir)))]
     (doseq [file files]
-      (println "Rendering HTML content of:" (.getName file))
-      (println "----------------------------------------")
-      (let [content (slurp file)
-            html-content (markdown/md-to-html-string content)
-            rendered-html (selmer/render template {:content html-content})]
-        (println rendered-html))
-      (println "----------------------------------------"))))
+      (markdown-to-html-file file))))
 
 (defn -main [& args]
   (if-let [dir (first args)]
