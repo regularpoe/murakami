@@ -1,4 +1,5 @@
 (ns murakami.core
+  (:gen-class)
   (:require [clojure.java.io :as io]
             [clojure.string :as str]))
 
@@ -11,7 +12,7 @@
       (println "Printing content of:" (.getName file))
       (println (slurp file)))))
 
-(defn -main
-  "I don't do a whole lot ... yet."
-  [& args]
-  (println "Hello, World!"))
+(defn -main [& args]
+  (if-let [dir (first args)]
+    (read-markdown-files dir)
+    (println "Provide path to Markdown files")))
