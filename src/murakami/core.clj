@@ -7,17 +7,33 @@
 
 (def template "
 <!DOCTYPE html>
-<html>
+<html lang=\"en\">
 <head>
-    <title>Markdown to HTML</title>
+  <meta charset=\"utf-8\">
+  <title></title>
+  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
+  <link rel=\"stylesheet\" href=\"../css/normalize.css\">
+  <link rel=\"stylesheet\" href=\"../css/skeleton.css\">
+  <link rel=\"stylesheet\" href=\"../css/style.css\">
+  <link rel=\"stylesheet\" href=\"../css/github.min.css\">
+  <script src=\"../highlight.min.js\"></script>
+  <link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/apple-touch-icon.png\">
+  <link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/favicon-32x32.png\">
+  <link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"/favicon-16x16.png\">
+  <link rel=\"manifest\" href=\"/site.webmanifest\">
 </head>
 <body>
-    <h1>Markdown Content</h1>
-    <div>
-        {{content | safe}}
+    <div class=\"container\">
+        <div class=\"row\">
+            <header><h1>a title goes here</h1></header>
+        </div>
+        <div class=\"row post\">
+            {{content | safe}}
+        </div>
     </div>
+    <script>hljs.highlightAll();</script>
 </body>
-</html>  
+</html>
 ")
 
 (defn is-markdown-file? [file]
